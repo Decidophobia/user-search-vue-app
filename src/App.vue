@@ -1,13 +1,47 @@
 <template>
   <div id="app">
-    The text will be replaced soon...
+    <div class="search-panel">
+      <input type="text" @keydown.enter="onSubmit()" v-model="inputValue" />
+      <div class="users-list">
+        <div v-for="user in usersPrev" :key="user.id" class="users-list-_item">
+          {{ user.login }}
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
+// import Search from './components/Search'
+// import UserList from './components/UserList'
+
 export default {
   name: 'App',
-  components: {},
+  components: {
+    // Search,
+    // UserList,
+  },
+  data() {
+    return {
+      inputValue: '',
+      users: [],
+      usersPrev: [],
+    };
+  },
+
+  methods: {
+    ...mapActions('users', ['fetchGetUsers']),
+    async onSubmit() {
+      this.users = await this.fetchGetUsers(this.inputValue);
+      this.usersPrev = this.users.map((user) => {
+        return {
+          login: user.login,
+          id: user.id,
+        };
+      });
+    },
+  },
 };
 </script>
 

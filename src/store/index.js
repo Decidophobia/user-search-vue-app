@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import users from './modules/users'
+import users from './modules/users';
 
 Vue.use(Vuex);
 
@@ -8,7 +8,8 @@ const store = new Vuex.Store({
   state: {},
   mutations: {},
   actions: {},
-  modules: {users},
+  modules: { users },
 });
+
 
 export default store;

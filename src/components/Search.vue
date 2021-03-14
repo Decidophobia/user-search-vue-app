@@ -14,11 +14,7 @@ export default{
       inputValue: '',
     }
   },
-  watch: {
-    inputValue(value){
-      console.log(value);
-    }
-  }
+  
 }
 
 </script>

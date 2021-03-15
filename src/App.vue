@@ -4,7 +4,18 @@
       <Search />
       <user-list />
       <v-spacer />
-      <!-- <Pagination /> -->
+
+      <v-btn
+        @click="toTop"
+        class="scroll-btn"
+        large
+        fixed
+        absolute
+        right
+        bottom
+        color="blue lighten-1"
+        >UP</v-btn
+      >
     </v-app>
   </div>
 </template>
@@ -12,14 +23,17 @@
 <script>
 import Search from './components/Search.vue';
 import UserList from './components/UserList.vue';
-import Pagination from './components/Pagination.vue';
 
 export default {
   name: 'App',
   components: {
     Search,
     UserList,
-    Pagination,
+  },
+  methods: {
+    toTop() {
+      this.$vuetify.goTo(0);
+    },
   },
 };
 </script>
@@ -32,5 +46,11 @@ export default {
   width: 100%;
   max-width: 600px;
   margin: 0 auto;
+}
+.scroll-btn {
+  margin-bottom: 30px;
+  margin-right: 30px;
+  text-align: center;
+  font-size: 20px;
 }
 </style>

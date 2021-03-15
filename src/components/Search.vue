@@ -1,5 +1,5 @@
 <template>
-  <v-card class="card-container">
+  <v-card class="card-container" color="blue lighten-5">
     <v-card-title>
       Поиск пользователей GitHub
     </v-card-title>
@@ -37,13 +37,14 @@
         </div>
       </v-col>
     </div>
-    <!-- тест пагинации -->
+ 
     <v-spacer />
     <v-col>
       <div class="text-center" @click="onSubmit()">
         <v-pagination
           v-model="pageNumber"
           :length="culcPaginationLength"
+          color="blue lighten-1"
           prev-icon="mdi-menu-left"
           next-icon="mdi-menu-right"
         ></v-pagination>
@@ -93,11 +94,6 @@ export default {
       this.paginationLength = Math.ceil(
         this.getTotalResults / this.itemsPerPage
       );
-      console.log(
-        'total:' + this.getTotalResults,
-        'length:' + this.paginationLength
-      );
-
       return this.paginationLength;
     },
   },

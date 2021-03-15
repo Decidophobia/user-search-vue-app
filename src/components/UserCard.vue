@@ -16,7 +16,7 @@
         Перейти на профиль
       </div>
       <div class="users-list_full-info_text">
-        <a :href="user.gitHub">gitHub</a>
+        <a :href="user.gitHub" target="_blank">gitHub</a>
       </div>
     </div>
   </div>
@@ -58,5 +58,8 @@ img {
 .users-list_login {
   flex-grow: 1;
   margin-left: 16px;
+}
+.users-list_full-info_text{
+  text-align: center;
 }
 </style>

@@ -4,7 +4,7 @@
       <Search />
       <user-list />
       <v-spacer />
-      <Pagination />
+      <!-- <Pagination /> -->
     </v-app>
   </div>
 </template>

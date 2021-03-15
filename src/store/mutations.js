@@ -1,4 +1,5 @@
-export default{
+export default {
   GET_USERS: 'GET_USERS',
-  SET_USERS: 'SET_USERS'
-}
+  SET_USERS: 'SET_USERS',
+  GET_TOTAL_RESULTS: 'GET_TOTAL_RESULTS'
+};

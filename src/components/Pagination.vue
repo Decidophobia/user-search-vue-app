@@ -1,7 +1,7 @@
 <template>
-  <div class="text-center">
+  <div class="text-center" @click="onClick($event)">
     <v-pagination
-       v-model="currentPage"
+      v-model="currentPage"
       :length="5"
       prev-icon="mdi-menu-left"
       next-icon="mdi-menu-right"
@@ -12,12 +12,16 @@
 <script>
 export default {
   name: 'Pagination',
-     data() {
-    return { 
-      currentPage: 1
-    }
-   },
-
-  }
-
+  data() {
+    return {
+      currentPage: 1,
+    };
+  },
+  methods: {
+    onClick(e) {
+      this.currentPage = +e.target.innerText
+      console.log('click' ,this.currentPage);
+    },
+  },
+};
 </script>

@@ -10,14 +10,19 @@
       <button @click="onSubmit()">Поиск</button>
     </div>
     <div class="search-panel_sort-btn">
-      <button
-        @click="
-          changeOrder();
-          onSubmit();
-        "
-      >
-        Order: {{ this.order }}
-      </button>
+      <span>Показывать на странице:</span>
+      <select v-model="itemsPerPage" >
+        <option v-for="page in resultCountOptions" :key="page">{{page}}</option>
+      </select>
+      <div class="search-panel_sort-btn_img">
+        <span>Сортировать по количеству репозиториев</span>
+        <img
+          :src="sortImg"
+          @click="
+            changeOrder();
+            onSubmit();
+          "/>
+      </div>
     </div>
   </div>
 </template>
@@ -35,6 +40,9 @@ export default {
       order: 'desc',
       itemsPerPage: 10,
       pageNumber: 1,
+      //sort btn img
+      sortImg: '/src/img/sort-desc.png',
+      resultCountOptions: [10, 25, 50, 100],
     };
   },
   methods: {
@@ -51,7 +59,13 @@ export default {
     },
 
     changeOrder() {
-      this.order = this.order === 'desc' ? 'asc' : 'desc';
+      if (this.order === 'desc') {
+        this.order = 'asc';
+        this.sortImg = '/src/img/sort-asc.png';
+      } else {
+        this.order = 'desc';
+        this.sortImg = '/src/img/sort-desc.png';
+      }
     },
   },
 };
@@ -63,5 +77,16 @@ export default {
   justify-content: space-between;
   align-items: center;
   margin-top: 15px;
+}
+.search-panel_sort-btn_img {
+  display: flex;
+  justify-content: space-between;
+}
+.search-panel_sort-btn_img img {
+  width: 30px;
+  border-radius: 3px;
+  padding: 2px;
+  cursor: pointer;
+  border: 1px solid rgba(44, 62, 80, 0.67);
 }
 </style>

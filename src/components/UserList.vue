@@ -38,7 +38,7 @@ export default {
   margin-top: 36px;
 }
 .users-list_item:hover {
-  box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.7);
+  box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.6);
   transform: scale(1.02);
   border-radius: 8px;
 }

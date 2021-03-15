@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <h1>Поиск пользователей GitHub</h1>
     <Search/>
     <user-list/>
     </div>
@@ -26,7 +27,8 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  width: 600px;
+  width: 100%;
+  max-width: 600px;
   margin: 0 auto;
 }
 </style>

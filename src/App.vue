@@ -1,24 +1,26 @@
 <template>
   <div id="app">
-    <h1>Поиск пользователей GitHub</h1>
-    <Search/>
-    <user-list/>
-    </div>
+    <v-app>
+      <Search />
+      <user-list />
+      <v-spacer />
+      <Pagination />
+    </v-app>
   </div>
 </template>
 
 <script>
-
 import Search from './components/Search.vue';
 import UserList from './components/UserList.vue';
+import Pagination from './components/Pagination.vue';
 
 export default {
   name: 'App',
   components: {
     Search,
     UserList,
+    Pagination,
   },
-  
 };
 </script>
 

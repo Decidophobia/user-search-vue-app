@@ -11,7 +11,7 @@
         {{ user.login }}
       </div>
     </div>
-    <div class="users-list_full-info" v-show="isClicked">
+     <div class="users-list_full-info" v-show="isClicked">
       <div class="users-list_full-info_label">
         Перейти на профиль
       </div>

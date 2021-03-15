@@ -1,30 +1,49 @@
 <template>
-  <div class="search-panel">
-    <div class="search-panel_input">
-      <input
-        type="text"
-        @keydown.enter="onSubmit()"
+  <!-- test vuetify -->
+  <v-card>
+    <v-card-title>
+      Поиск пользователей GitHub
+    </v-card-title>
+    <v-spacer />
+    <v-col>
+      <v-text-field
         v-model="inputValue"
-        placeholder="Введите имя пользователя"
-      />
-      <button @click="onSubmit()">Поиск</button>
-    </div>
+        @keydown.enter="onSubmit()"
+        append-icon="mdi-magnify"
+        label="Введите имя пользователя"
+        single-line
+        hide-details
+      ></v-text-field>
+    </v-col>
+    <v-spacer />
     <div class="search-panel_sort-btn">
-      <span>Показывать на странице:</span>
-      <select v-model="itemsPerPage" >
-        <option v-for="page in resultCountOptions" :key="page">{{page}}</option>
-      </select>
-      <div class="search-panel_sort-btn_img">
-        <span>Сортировать по количеству репозиториев</span>
-        <img
-          :src="sortImg"
-          @click="
-            changeOrder();
-            onSubmit();
-          "/>
-      </div>
+      <v-container>
+        <v-col>
+          <v-select
+            v-model="itemsPerPage"
+            :items="[10, 25, 50, 100]"
+            label="Показывать на странице:"
+          >
+          </v-select>
+        </v-col>
+        <v-col>
+          <div class="search-panel_sort-btn_img">
+            <span>Сортировать по количеству репозиториев</span>
+            <img
+              :src="sortImg"
+              @click="
+                changeOrder();
+                onSubmit();
+              "
+            />
+          </div>
+        </v-col>
+      </v-container>
     </div>
-  </div>
+  
+  </v-card>
+  
+
 </template>
 
 <script>
@@ -32,6 +51,7 @@ import { mapActions } from 'vuex';
 
 export default {
   name: 'Search',
+  
   data() {
     return {
       inputValue: '',
@@ -42,7 +62,6 @@ export default {
       pageNumber: 1,
       //sort btn img
       sortImg: '/src/img/sort-desc.png',
-      resultCountOptions: [10, 25, 50, 100],
     };
   },
   methods: {
@@ -72,12 +91,6 @@ export default {
 </script>
 
 <style scoped>
-.search-panel {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 15px;
-}
 .search-panel_sort-btn_img {
   display: flex;
   justify-content: space-between;

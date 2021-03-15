@@ -1,14 +1,26 @@
 <template>
   <div id="app">
-    <h1>Поиск пользователей GitHub</h1>
-    <Search/>
-    <user-list/>
-    </div>
+    <v-app>
+      <Search />
+      <user-list />
+      <v-spacer />
+
+      <v-btn
+        @click="toTop"
+        class="scroll-btn"
+        large
+        fixed
+        absolute
+        right
+        bottom
+        color="blue lighten-1"
+        >UP</v-btn
+      >
+    </v-app>
   </div>
 </template>
 
 <script>
-
 import Search from './components/Search.vue';
 import UserList from './components/UserList.vue';
 
@@ -18,7 +30,11 @@ export default {
     Search,
     UserList,
   },
-  
+  methods: {
+    toTop() {
+      this.$vuetify.goTo(0);
+    },
+  },
 };
 </script>
 
@@ -30,5 +46,11 @@ export default {
   width: 100%;
   max-width: 600px;
   margin: 0 auto;
+}
+.scroll-btn {
+  margin-bottom: 30px;
+  margin-right: 30px;
+  text-align: center;
+  font-size: 20px;
 }
 </style>

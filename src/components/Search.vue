@@ -1,37 +1,64 @@
 <template>
-  <div class="search-panel">
-    <div class="search-panel_input">
-      <input
-        type="text"
-        @keydown.enter="onSubmit()"
+  <v-card class="card-container" color="blue lighten-5">
+    <v-card-title>
+      Поиск пользователей GitHub
+    </v-card-title>
+    <v-col>
+      <v-text-field
         v-model="inputValue"
-        placeholder="Введите имя пользователя"
-      />
-      <button @click="onSubmit()">Поиск</button>
-    </div>
+        @keydown.enter="onSubmit()"
+        append-icon="mdi-magnify"
+        label="Введите имя пользователя"
+        single-line
+        hide-details
+      >
+      </v-text-field>
+    </v-col>
+
     <div class="search-panel_sort-btn">
-      <span>Показывать на странице:</span>
-      <select v-model="itemsPerPage" >
-        <option v-for="page in resultCountOptions" :key="page">{{page}}</option>
-      </select>
-      <div class="search-panel_sort-btn_img">
-        <span>Сортировать по количеству репозиториев</span>
-        <img
-          :src="sortImg"
-          @click="
-            changeOrder();
-            onSubmit();
-          "/>
-      </div>
+      <v-col>
+        <v-select
+          v-model="itemsPerPage"
+          :items="[10, 25, 50, 100]"
+          label="Показывать на странице:"
+        >
+        </v-select>
+      </v-col>
+      <v-col>
+        <div class="search-panel_sort-btn_img">
+          <span>Сортировать по количеству репозиториев</span>
+          <img
+            :src="sortImg"
+            @click="
+              changeOrder();
+              onSubmit();
+            "
+          />
+        </div>
+      </v-col>
     </div>
-  </div>
+ 
+    <v-spacer />
+    <v-col>
+      <div class="text-center" @click="onSubmit()">
+        <v-pagination
+          v-model="pageNumber"
+          :length="culcPaginationLength"
+          color="blue lighten-1"
+          prev-icon="mdi-menu-left"
+          next-icon="mdi-menu-right"
+        ></v-pagination>
+      </div>
+    </v-col>
+  </v-card>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'Search',
+
   data() {
     return {
       inputValue: '',
@@ -42,12 +69,36 @@ export default {
       pageNumber: 1,
       //sort btn img
       sortImg: '/src/img/sort-desc.png',
-      resultCountOptions: [10, 25, 50, 100],
+      //pagination
+      paginationLength: 10,
     };
+  },
+  watch: {
+    async itemsPerPage() {
+      if (this.inputValue) {
+        await this.fetchGetUsers({
+          name: this.inputValue,
+          sortType: this.sortType,
+          order: this.order,
+          itemsPerPage: this.itemsPerPage,
+          pageNumber: this.pageNumber,
+        });
+      }
+    },
+  },
+  computed: {
+    ...mapGetters({
+      getTotalResults: 'users/getTotalResults',
+    }),
+    culcPaginationLength() {
+      this.paginationLength = Math.ceil(
+        this.getTotalResults / this.itemsPerPage
+      );
+      return this.paginationLength;
+    },
   },
   methods: {
     ...mapActions('users', ['fetchGetUsers']),
-
     async onSubmit() {
       await this.fetchGetUsers({
         name: this.inputValue,
@@ -72,11 +123,10 @@ export default {
 </script>
 
 <style scoped>
-.search-panel {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 15px;
+.card-container {
+  padding: 20px 30px;
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 .search-panel_sort-btn_img {
   display: flex;
